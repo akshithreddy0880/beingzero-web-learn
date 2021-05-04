@@ -1,0 +1,22 @@
+{
+  "name": "beingzero-web-learn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akshithreddy0880/beingzero-web-learn.git"
+  },
+  "author": "akshith",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akshithreddy0880/beingzero-web-learn/issues"
+  },
+  "homepage": "https://github.com/akshithreddy0880/beingzero-web-learn#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
