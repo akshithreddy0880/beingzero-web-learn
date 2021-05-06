@@ -4,7 +4,9 @@ const app = express();
 app.use(express.static(__dirname + "/frontend"));
 
 app.get("/", function (req, res) {
-    res.send('Akshiths Website')
+    let filepath2 = __dirname + "/frontend/html/home.html";
+
+    res.sendFile(filepath2);
 })
 app.get("/resume", function (req, res) {
     let filepath = __dirname + "/frontend/html/resume.html";
