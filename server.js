@@ -13,6 +13,11 @@ app.get("/resume", function (req, res) {
 
     res.sendFile(filepath);
 })
+app.get("/piechart", function (req, res) {
+    let filepath = __dirname + "/frontend/html/piechart.html";
+
+    res.sendFile(filepath);
+})
 app.get("/google", function (req, res) {
     let filepath1 = __dirname + "/frontend/html/google.html"
     res.sendFile(filepath1)
