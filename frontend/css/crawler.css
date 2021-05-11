@@ -1,0 +1,22 @@
+body{
+    background-color: lightgoldenrodyellow;
+}
+h{
+    color: red;
+    font-style: oblique;
+    font-size: 40px;
+    margin-left: 27%;
+}
+
+#bo{
+    margin-left: 38%;
+   
+}
+#contestslug{
+    color: red;
+  border-radius: 10px;
+}
+#chart-div{
+	margin-left: 38%;
+	margin-top: 5%;
+}

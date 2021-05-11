@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <link rel="stylesheet" href="/css/crawler.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"></script>
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+   <link rel="stylesheet" href="/css/crawler.css">
+</head>
+<body>
+   
+  <div class="container">
+     <div class="table-responsive">
+        <h>Codeforces Data Visualiser</h>
+        <h1 id="userinf"></h1>
+        
+        <table class="table table-bordered table-striped" id="cftable">
+         <tr>
+           
+         </tr>
+        </table>
+
+
+     </div>
+
+  </div>
+  <br><br>
+  <div id="bo">
+   <input type="text" id="contestslug">
+   <button id="contestslug" onclick="getdata()">GetData</button>
+  </div>
+  <div id="chart_div"></div>
+  <hr>
+  <div id="chart_div2"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+function getdata(){
+   $("#contestslug").hide();
+   $("button").hide();
+var handname = document.getElementById("contestslug").value;
+
+        if(!handname ) 
+        {
+            alert("Enter a value") ;
+            return ;
+        }
+var api_url="https://codeforces.com/api/user.info?handles="+handname ;
+
+var apicon="https://codeforces.com/api/user.rating?handle="+handname ;
+var y="<h1> User Info ! </h1>"+"<hr>";
+async function getapi(api_url) {
+	
+
+   
+   
+	const response = await fetch(api_url);
+   var data = await response.json();
+	y+="<h5> Rating                                            : "+data.result[0].rating+"</h5><hr>";
+   y+="<h5> Max Rank                                          : "+data.result[0].maxRank+"</h5><hr>";
+   y+="<h5> Max Rating                                         : "+data.result[0].maxRating+"</h5><hr>";
+   y+="<h5> Organization                                         : "+data.result[0].organization+"</h5><hr>";
+
+	
+    var name=data.result[0].handle;
+    var rating=data.result[0].maxRating;
+    var rank=data.result[0].maxRank;
+   // console.log(name)
+   //  document.getElementById("contai").innerHTML=name;
+   //  document.getElementById("rating").innerHTML=rating;
+   //  document.getElementById("cat").innerHTML=rank;
+	//console.log(data);
+   document.getElementById("userinf").innerHTML = y ;
+    
+    
+	
+	
+}
+getapi(api_url);
+async function getap(apicon) {
+	
+	
+	const response = await fetch(apicon);
+	
+	
+	var data = await response.json();
+console.log(data);
+  var x='';
+  
+  x+='<th>'+'ContestId'+'</th>';
+  x+='<th>'+'ContestName'+'</th>';
+  x+='<th>'+'Rank'+'</th>';
+  x+='<th>'+'Old Rating'+'</th>';
+  x+='<th>'+'New Rating'+'</th>';
+  for(var i = 0 ; i < data.result.length ; i++)
+   {
+     x += "<tr>" ;
+      x+='<td>'+data.result[i].contestId+'</td>';
+      x+='<td>'+data.result[i].contestName+'</td>';
+      x+='<td>'+data.result[i].rank+'</td>';
+      x+='<td>'+data.result[i].oldRating+'</td>';
+      x+='<td>'+data.result[i].newRating+'</td>';
+      x+="<tr>"
+     }
+     x += "</table>" ;
+     document.getElementById("cftable").innerHTML = x ;
+     x = "" ;
+    }
+    var apisub="https://codeforces.com/api/user.status?handle="+handname ;
+    async function getUserSubmissions(apisub){
+        userLang = {};userSubmissionsInfo = {};
+        langList = [];submissionList = [];
+    
+        const res = await fetch(apisub);
+        var data = await res.json();
+        console.log(data);
+    
+        for(let i=0;i<data.result.length;i++){
+            var x = data.result[i].programmingLanguage;
+    
+            if(userLang[x] === undefined)userLang[x] = 0;
+            userLang[x]++;
+    
+            var y = data.result[i].verdict;
+            if(userSubmissionsInfo[y] === undefined)userSubmissionsInfo[y] = 0;
+            userSubmissionsInfo[y]++;
+        }
+   
+
+var lang = JSON.stringify(userLang)
+        var l = "";
+        for(let i=2;i<lang.length;i++){
+            if(lang[i]==","){
+                let j = 0;
+                while(l[j]!=":")j++;
+                l = l.substring(0,j-1);
+                langList.push(l);
+                l = "";
+                i++;
+            }
+            else
+                l+=lang[i];
+        }
+        let j=0;
+        while(l[j]!=":")j++;
+        l = l.substring(0,j-1);
+        langList.push(l);
+
+
+        var subm = JSON.stringify(userSubmissionsInfo)
+        console.log(subm)
+        l = "";
+        for(let i=2;i<subm.length;i++){
+            if(subm[i]==","){
+                let k = 0;
+                while(l[k]!=":")k++;
+                l = l.substring(0,k-1);
+                submissionList.push(l);
+                l = "";
+                i++;
+            }
+            else
+                l+=subm[i];
+        }
+        j=0;
+        while(l[j]!=":")j++;
+        l = l.substring(0,j-1);
+        submissionList.push(l);
+        google.charts.setOnLoadCallback(drawChartLanguages);
+google.charts.setOnLoadCallback(drawChartVerdicts);
+
+       
+
+    }
+    getap(apicon);
+getUserSubmissions(apisub);
+
+    
+google.charts.load('current', {'packages':['corechart']});
+
+     
+
+    function drawChartLanguages(){
+        var data = new google.visualization.DataTable();
+            data.addColumn('string', 'solvedcount');
+            data.addColumn('number', 'Slices');
+    
+            for(let i=0;i<langList.length;i++)
+                data.addRows([
+                    [ langList[i],userLang[langList[i]] ]
+                ]);
+            
+        var options = {
+            title : 'Languages used',
+            width : 500,
+            height : 400,
+            is3D : true,
+            pieSliceText : 'none',
+        };
+    
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+        
+        $("#chart_div").show()
+    }
+
+
+    function drawChartVerdicts(){
+        var data = new google.visualization.DataTable();
+            data.addColumn('string', 'solvedcount');
+            data.addColumn('number', 'Slices');
+    
+            for(let i=0;i<submissionList.length;i++)
+                data.addRows([
+                    [ submissionList[i],userSubmissionsInfo[submissionList[i]] ]
+                ]);
+                //console.log(data);
+            
+        var options = {
+            title : 'User Submissions',
+            width : 500,
+            height : 400,
+            is3D : true,
+            pieSliceText : 'none',
+        };
+    
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div2'));
+        chart.draw(data, options);
+        
+        $("#chart_div2").show()
+    }
+
+   
+}
+</script>
+
+   
+</body>
+</html>
