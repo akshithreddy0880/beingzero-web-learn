@@ -19,6 +19,11 @@ app.get("/crawler", function (req, res) {
 
     res.sendFile(filepath);
 })
+app.get("/todo", function (req, res) {
+    let filepath = __dirname + "/frontend/html/todolist.html";
+
+    res.sendFile(filepath);
+})
 
 
 app.get("/piechart", function (req, res) {
