@@ -1,41 +1,30 @@
-html,body{
-    width: 50%;
-    margin: 0 auto;
-    font-family: Arial, Helvetica, sans-serif;
-}
-.container{
-    width: 300px;
-    height: 46px;
+.heading {
+    margin: 40px 0 15px;
+    text-transform: uppercase;
+    font-weight: bolder;
+  }
+  #list-items {
+    margin-top: 30px;
+    margin-left: 650px;
+  }
+  #list-items li {
+    font-size: 1.1em;
+    text-transform: capitalize;
+  }
   
-    outline: none;
-    font-size: 25px;
-    vertical-align: middle;
-    margin-left: 20%;
-}
-#inputfield{
+  #list-items li.done {
+    text-decoration: line-through
+  }
+#todo-input{
     height: 30px;
-    border-radius: 20px;
+    width: 200px;
+    margin-top: 20px;
+    margin-left: 650px;
 }
-#addtodo {
-    height:30px;
-    width:50px;
-    border-radius: 20px;
-    outline: none;
-}
-.maincont{
-    width: 500px;
-    border:2px solid green;
-    height: 500px;
-    margin-top: 50px;
-    margin-left: auto;
-    background-color: indianred;
-}
-h1{
-    margin-left: 20%;
-    color: lightsalmon;
-}
-.para-styling{
-    margin: 0;
-    cursor: pointer;
-    font-size: 20px;
+#btn{
+    height: 30px;
+    width: 100px;
+    text-align: center;
+    vertical-align: middle;
+    margin: auto;
 }
