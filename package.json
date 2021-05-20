@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/akshithreddy0880/beingzero-web-learn#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.12.10"
   }
 }
