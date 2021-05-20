@@ -1,25 +1,17 @@
 const express = require('express');
 const mongoose=require('mongoose');
 const courselib = require('./backend/lib/courselib');
+const config=require('./backend/config/config');
 const app = express();
+const dbConnectLib=require('./backend/lib/dbConnectLib');
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 
 
+dbConnectLib.connect();
 
-var url='mongodb+srv://akshith:@18H51A05j0@cluster0.3ureu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
-var dboptions={ useNewUrlParser: true , useUnifiedTopology: true };
-mongoose.connect(url,dboptions);
-var  db= mongoose.connection;
-db.on('connected',function(){
-    console.log('mongo connected')
-    // courseLib.createcourse({coursename:'mean'},function(err,saveobj){
-    //     console.log(saveobj);
-    
-    //  })
-});
 
 
 app.use(express.static(__dirname + "/frontend"));
