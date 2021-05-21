@@ -37,6 +37,11 @@ app.get("/todo", function (req, res) {
 
     res.sendFile(filepath);
 })
+app.get("/tambola", function (req, res) {
+    let filepath = __dirname + "/frontend/html/tambola.html";
+
+    res.sendFile(filepath);
+})
 
 
 app.get("/piechart", function (req, res) {
@@ -55,6 +60,6 @@ app.put("/crud/:idd", courselib.update);
 app.post("/crud",courselib.addnewone);
 //it is changed
 // Start the server
-app.listen(PORT, function () {
+app.listen(config.webPort, function () {
     console.log("Server Starting running on http://localhost:" + PORT);
 })
